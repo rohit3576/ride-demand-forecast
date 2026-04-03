@@ -36,75 +36,180 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for professional styling & better visibility
+# Custom CSS for ultra-smooth, dark theme & high visibility ✨
 st.markdown("""
     <style>
-    /* Main container styling */
-    .main { padding: 0rem 1rem; }
-    
-    /* Custom card styling */
-    .metric-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 1rem;
-        border-radius: 10px;
-        color: white;
-        margin: 0.5rem 0;
+    /* Smooth Dark App Background & Font */
+    .stApp {
+        background-color: #0f172a !important;
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
     
-    /* New Highly Visible Prediction Card */
-    .prediction-highlight {
-        background: linear-gradient(135deg, #0ba360 0%, #3cb0fd 100%);
-        padding: 3rem 2rem;
-        border-radius: 20px;
-        color: white;
-        text-align: center;
-        box-shadow: 0 15px 30px rgba(11, 163, 96, 0.2);
-        margin: 2rem 0;
-        transition: transform 0.3s ease;
+    /* ENFORCE LIGHT TEXT GLOBALLY FOR DARK MODE */
+    .stApp p, .stApp span, .stApp label, .stApp div[data-testid="stMarkdownContainer"], .stApp li {
+        color: #cbd5e1 !important;
     }
-    .prediction-highlight:hover { transform: translateY(-5px); }
-    .prediction-highlight h3 { color: rgba(255,255,255,0.9); font-weight: 500; margin-bottom: 0; text-transform: uppercase; letter-spacing: 1.5px; font-size: 1.2rem; }
-    .prediction-highlight h1 { font-size: 5rem !important; margin: 10px 0 !important; font-weight: 800 !important; color: white !important; text-shadow: 2px 4px 8px rgba(0,0,0,0.2); }
-    .confidence-badge { background: rgba(255,255,255,0.25); padding: 8px 20px; border-radius: 30px; display: inline-block; font-weight: 600; letter-spacing: 0.5px; backdrop-filter: blur(5px); }
-
-    /* Header styling */
-    h1 {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-size: 2.5rem !important;
+    h1, h2, h3, h4, h5, h6 {
+        color: #f8fafc !important;
         font-weight: 700 !important;
     }
     
-    /* Tab styling */
+    /* Main container styling */
+    .block-container { 
+        padding: 2rem 2rem; 
+        max-width: 1400px;
+    }
+    
+    /* Custom Data cards styling (Dark Theme) */
+    div[data-testid="metric-container"] {
+        background: #1e293b;
+        padding: 1.5rem;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        border: 1px solid #334155;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    div[data-testid="metric-container"]:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 15px rgba(56, 189, 248, 0.1);
+        border-color: #38bdf8;
+    }
+    
+    /* Explicit Metric Text Colors */
+    div[data-testid="metric-container"] label p {
+        color: #94a3b8 !important;
+        font-weight: 600 !important;
+    }
+    div[data-testid="metric-container"] div[data-testid="stMetricValue"] > div {
+        color: #38bdf8 !important;
+        font-weight: 800 !important;
+    }
+    div[data-testid="stMetricDelta"] * {
+        color: inherit !important;
+    }
+    
+    /* Ultra-Smooth Highly Visible Prediction Card (Neon Dark Theme) 🌟 */
+    .prediction-highlight {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        padding: 4rem 2rem;
+        border-radius: 24px;
+        color: white;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(56, 189, 248, 0.3);
+        border: 1px solid #38bdf8;
+        margin: 2rem 0;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+    }
+    .prediction-highlight::before {
+        content: '';
+        position: absolute;
+        top: -50%; left: -50%; width: 200%; height: 200%;
+        background: radial-gradient(circle, rgba(56, 189, 248, 0.05) 0%, transparent 60%);
+        transform: rotate(45deg);
+        pointer-events: none;
+    }
+    .prediction-highlight:hover { 
+        transform: translateY(-8px) scale(1.01); 
+        box-shadow: 0 30px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.2);
+    }
+    .prediction-highlight p, .prediction-highlight span, .prediction-highlight div {
+        color: #e2e8f0 !important;
+    }
+    .prediction-highlight h3 { 
+        color: #7dd3fc !important; 
+        font-weight: 600; 
+        margin-bottom: 0; 
+        text-transform: uppercase; 
+        letter-spacing: 2px; 
+        font-size: 1.3rem; 
+    }
+    .prediction-highlight h1 { 
+        font-size: 6.5rem !important; 
+        margin: 10px 0 !important; 
+        font-weight: 900 !important; 
+        color: #f0f9ff !important; 
+        text-shadow: 0 0 20px rgba(56, 189, 248, 0.4); 
+        line-height: 1.1;
+    }
+    .confidence-badge { 
+        background: rgba(56, 189, 248, 0.1); 
+        padding: 10px 24px; 
+        border-radius: 50px; 
+        display: inline-block; 
+        font-weight: 700; 
+        letter-spacing: 1px; 
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        color: #38bdf8 !important;
+    }
+
+    /* Header styling */
+    h1 {
+        background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        font-size: 2.8rem !important;
+        font-weight: 800 !important;
+        padding-bottom: 10px;
+    }
+    
+    /* Tab styling for smooth dark contrast */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 1rem;
-        background-color: #f8f9fa;
-        padding: 0.5rem;
-        border-radius: 10px;
+        gap: 1.5rem;
+        background-color: #1e293b;
+        padding: 0.8rem;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        border: 1px solid #334155;
     }
     .stTabs [data-baseweb="tab"] {
-        border-radius: 8px;
-        padding: 0.5rem 1rem;
-        font-weight: 600;
+        border-radius: 12px;
+        padding: 0.6rem 1.2rem;
+        font-weight: 700;
         transition: all 0.3s ease;
+        background-color: transparent;
     }
-    .stTabs [data-baseweb="tab"]:hover { background-color: #e9ecef; transform: translateY(-2px); }
+    .stTabs [data-baseweb="tab"] p {
+        color: #94a3b8 !important;
+    }
+    .stTabs [data-baseweb="tab"]:hover { 
+        background-color: #334155; 
+        transform: translateY(-2px); 
+    }
+    .stTabs [data-baseweb="tab"][aria-selected="true"] {
+        background: linear-gradient(135deg, #38bdf8 0%, #3b82f6 100%);
+        box-shadow: 0 4px 10px rgba(56, 189, 248, 0.3);
+    }
+    .stTabs [data-baseweb="tab"][aria-selected="true"] p {
+        color: #0f172a !important; 
+    }
     
-    /* Button styling */
+    /* Button styling - buttery smooth dark mode */
     .stButton > button[kind="primary"] {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
+        background: linear-gradient(135deg, #38bdf8 0%, #3b82f6 100%);
         border: none;
-        border-radius: 8px;
-        padding: 0.5rem 2rem;
-        font-weight: bold;
+        border-radius: 12px;
+        padding: 0.8rem 2.5rem;
+        font-weight: 800;
+        font-size: 1.1rem;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 6px 15px rgba(56, 189, 248, 0.25);
+    }
+    .stButton > button[kind="primary"] * {
+        color: #0f172a !important;
     }
     .stButton > button[kind="primary"]:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 25px rgba(56, 189, 248, 0.4);
+    }
+    
+    /* Fix Expander and Text inputs in dark mode */
+    .stTextInput input, .stNumberInput input {
+        background-color: #1e293b !important;
+        color: #f8fafc !important;
+        border-color: #334155 !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -148,7 +253,7 @@ try:
     with col4:
         st.metric("📉 Min Demand", f"{demand['rides'].min():,.0f}")
     
-    st.markdown("---")
+    st.markdown("<br>", unsafe_allow_html=True)
     
 except Exception as e:
     st.error(f"⚠️ Error loading data: {str(e)}")
@@ -157,7 +262,8 @@ except Exception as e:
 # Helper function for plotting based on availability
 def create_line_chart(data, x=None, y=None, title=""):
     if PLOTLY_AVAILABLE and x is not None:
-        fig = px.line(data, x=x, y=y, title=title, template='plotly_white')
+        fig = px.line(data, x=x, y=y, title=title, template='plotly_dark')
+        fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
         st.plotly_chart(fig, use_container_width=True)
     else:
         fig, ax = plt.subplots(figsize=(10, 4))
@@ -190,12 +296,18 @@ with tab1:
         if PLOTLY_AVAILABLE:
             fig = px.line(demand, x=demand.index, y='rides', 
                           title='Ride Demand Over Time',
-                          template='plotly_white')
-            fig.update_layout(hovermode='x unified')
+                          template='plotly_dark')
+            fig.update_traces(line_color='#38bdf8')
+            fig.update_layout(
+                hovermode='x unified', 
+                paper_bgcolor='rgba(0,0,0,0)', 
+                plot_bgcolor='rgba(0,0,0,0)',
+                font=dict(color='#cbd5e1')
+            )
             st.plotly_chart(fig, use_container_width=True)
         else:
             fig, ax = plt.subplots(figsize=(10, 4))
-            ax.plot(demand.index, demand['rides'], linewidth=2, color='#667eea')
+            ax.plot(demand.index, demand['rides'], linewidth=2, color='#38bdf8')
             ax.set_title('Ride Demand Over Time')
             ax.set_xlabel('Date')
             ax.set_ylabel('Rides')
@@ -225,13 +337,19 @@ with tab1:
     if PLOTLY_AVAILABLE:
         fig = px.histogram(demand, x='rides', nbins=30, 
                            title='Distribution of Daily Ride Demand',
-                           template='plotly_white',
-                           marginal='box')
-        fig.update_layout(showlegend=False)
+                           template='plotly_dark',
+                           marginal='box',
+                           color_discrete_sequence=['#38bdf8'])
+        fig.update_layout(
+            showlegend=False, 
+            paper_bgcolor='rgba(0,0,0,0)', 
+            plot_bgcolor='rgba(0,0,0,0)',
+            font=dict(color='#cbd5e1')
+        )
         st.plotly_chart(fig, use_container_width=True)
     else:
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
-        ax1.hist(demand['rides'], bins=30, edgecolor='black', alpha=0.7, color='#667eea')
+        ax1.hist(demand['rides'], bins=30, edgecolor='black', alpha=0.7, color='#38bdf8')
         ax1.set_title('Demand Distribution')
         ax1.set_xlabel('Rides')
         ax1.set_ylabel('Frequency')
@@ -279,9 +397,9 @@ with tab2:
             fig = go.Figure()
             fig.add_trace(go.Scatter(x=y_test.index, y=y_test.values, 
                                      mode='lines', name='Actual',
-                                     line=dict(color='blue', width=2)))
+                                     line=dict(color='#f8fafc', width=3)))
             
-            colors = ['green', 'orange', 'red']
+            colors = ['#10b981', '#f59e0b', '#ef4444']
             for idx, (name, pred) in enumerate(models.items()):
                 fig.add_trace(go.Scatter(x=y_test.index, y=pred, 
                                          mode='lines', name=name,
@@ -290,12 +408,15 @@ with tab2:
             fig.update_layout(title='Model Predictions vs Actual',
                              xaxis_title='Date',
                              yaxis_title='Ride Demand',
-                             template='plotly_white',
-                             hovermode='x unified')
+                             template='plotly_dark',
+                             hovermode='x unified',
+                             paper_bgcolor='rgba(0,0,0,0)',
+                             plot_bgcolor='rgba(0,0,0,0)',
+                             font=dict(color='#cbd5e1'))
             st.plotly_chart(fig, use_container_width=True)
         else:
             fig, ax = plt.subplots(figsize=(12, 5))
-            ax.plot(y_test.index, y_test.values, label='Actual', linewidth=2, color='blue')
+            ax.plot(y_test.index, y_test.values, label='Actual', linewidth=3, color='white')
             for name, pred in models.items():
                 ax.plot(y_test.index, pred, label=name, linewidth=2, linestyle='--')
             ax.set_title('Model Predictions vs Actual')
@@ -333,25 +454,28 @@ with tab3:
         fig.add_trace(go.Bar(x=perf_df['Model'], 
                              y=[float(x) for x in perf_df['MAE']],
                              name='MAE',
-                             marker_color='#667eea'))
+                             marker_color='#38bdf8'))
         fig.add_trace(go.Bar(x=perf_df['Model'],
                              y=[float(x) for x in perf_df['RMSE']],
                              name='RMSE',
-                             marker_color='#764ba2'))
+                             marker_color='#818cf8'))
         
         fig.update_layout(title='Model Performance Metrics Comparison',
                          xaxis_title='Model',
                          yaxis_title='Error Value',
-                         template='plotly_white',
-                         barmode='group')
+                         template='plotly_dark',
+                         barmode='group',
+                         paper_bgcolor='rgba(0,0,0,0)',
+                         plot_bgcolor='rgba(0,0,0,0)',
+                         font=dict(color='#cbd5e1'))
         st.plotly_chart(fig, use_container_width=True)
     else:
         fig, ax = plt.subplots(figsize=(10, 5))
         x = np.arange(len(perf_df['Model']))
         width = 0.35
         
-        ax.bar(x - width/2, [float(x) for x in perf_df['MAE']], width, label='MAE', color='#667eea')
-        ax.bar(x + width/2, [float(x) for x in perf_df['RMSE']], width, label='RMSE', color='#764ba2')
+        ax.bar(x - width/2, [float(x) for x in perf_df['MAE']], width, label='MAE', color='#38bdf8')
+        ax.bar(x + width/2, [float(x) for x in perf_df['RMSE']], width, label='RMSE', color='#818cf8')
         
         ax.set_xlabel('Model')
         ax.set_ylabel('Error Value')
@@ -409,17 +533,17 @@ with tab4:
             
             prediction = rf_model.predict(input_data)[0]
             
-            # 1. Output Feature: Highly Styled Prediction Card
+            # 1. Output Feature: Highly Styled & Ultra Smooth Prediction Card
             st.markdown(f"""
             <div class="prediction-highlight">
                 <h3>Predicted Ride Volume</h3>
                 <h1>{int(prediction):,}</h1>
-                <p style="font-size: 1.2rem; opacity: 0.9; margin-top: 5px;">Expected total rides on <b>{weekday_name}, {month}/{day}/{today.year}</b></p>
+                <p style="font-size: 1.25rem; opacity: 0.9; margin-top: 5px;">Expected total rides on <b>{weekday_name}, {month}/{day}/{today.year}</b></p>
                 <div class="confidence-badge">🎯 Statistical Confidence: 95%</div>
             </div>
             """, unsafe_allow_html=True)
             
-            # 2. Output Features: Comparative Insights (3-column layout)
+            # 2. Output Features: Comparative Insights
             st.markdown("##### 📈 Strategic Demand Insights")
             metric_col1, metric_col2, metric_col3 = st.columns(3)
             
@@ -478,13 +602,14 @@ with tab5:
         fig = px.imshow(corr, 
                         text_auto=True, 
                         aspect="auto",
-                        color_continuous_scale='RdBu',
-                        title='Feature Correlation Matrix')
-        fig.update_layout(height=600)
+                        color_continuous_scale='Blues',
+                        title='Feature Correlation Matrix',
+                        template='plotly_dark')
+        fig.update_layout(height=600, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color='#cbd5e1'))
         st.plotly_chart(fig, use_container_width=True)
     else:
         fig, ax = plt.subplots(figsize=(12, 8))
-        im = ax.imshow(corr, cmap='RdBu', aspect='auto')
+        im = ax.imshow(corr, cmap='Blues', aspect='auto')
         plt.colorbar(im, ax=ax)
         ax.set_xticks(range(len(corr.columns)))
         ax.set_yticks(range(len(corr.columns)))
@@ -506,7 +631,8 @@ with tab6:
         if PLOTLY_AVAILABLE:
             fig = px.box(tips, x="day", y="total_bill", color="day",
                         title="Total Bill Distribution by Day",
-                        template='plotly_white')
+                        template='plotly_dark')
+            fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color='#cbd5e1'))
             st.plotly_chart(fig, use_container_width=True)
         else:
             fig, ax = plt.subplots(figsize=(10, 5))
@@ -518,7 +644,8 @@ with tab6:
         if PLOTLY_AVAILABLE:
             fig = px.violin(tips, x="day", y="total_bill", color="day",
                            box=True, title="Total Bill Distribution (Violin Plot)",
-                           template='plotly_white')
+                           template='plotly_dark')
+            fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color='#cbd5e1'))
             st.plotly_chart(fig, use_container_width=True)
         else:
             fig, ax = plt.subplots(figsize=(10, 5))
@@ -530,12 +657,14 @@ with tab6:
         corr_matrix = tips[['total_bill', 'tip', 'size']].corr()
         if PLOTLY_AVAILABLE:
             fig = px.imshow(corr_matrix, text_auto=True, aspect="auto",
-                           color_continuous_scale='RdBu',
-                           title="Correlation Heatmap")
+                           color_continuous_scale='Blues',
+                           title="Correlation Heatmap",
+                           template='plotly_dark')
+            fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color='#cbd5e1'))
             st.plotly_chart(fig, use_container_width=True)
         else:
             fig, ax = plt.subplots(figsize=(8, 6))
-            im = ax.imshow(corr_matrix, cmap='RdBu', aspect='auto')
+            im = ax.imshow(corr_matrix, cmap='Blues', aspect='auto')
             plt.colorbar(im, ax=ax)
             ax.set_xticks(range(len(corr_matrix.columns)))
             ax.set_yticks(range(len(corr_matrix.columns)))
@@ -563,7 +692,9 @@ with tab7:
                 fig = px.pie(values=before_counts.values, 
                             names=before_counts.index,
                             title='Class Distribution Before SMOTE',
-                            color_discrete_sequence=px.colors.sequential.RdBu)
+                            color_discrete_sequence=['#38bdf8', '#1e293b'],
+                            template='plotly_dark')
+                fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color='#cbd5e1'))
                 st.plotly_chart(fig, use_container_width=True)
             else:
                 fig, ax = plt.subplots(figsize=(6, 6))
@@ -582,7 +713,9 @@ with tab7:
                 fig = px.pie(values=after_counts.values,
                             names=after_counts.index,
                             title='Class Distribution After SMOTE',
-                            color_discrete_sequence=px.colors.sequential.Greens)
+                            color_discrete_sequence=['#10b981', '#059669'],
+                            template='plotly_dark')
+                fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color='#cbd5e1'))
                 st.plotly_chart(fig, use_container_width=True)
             else:
                 fig, ax = plt.subplots(figsize=(6, 6))
@@ -614,23 +747,26 @@ with tab8:
             fig.add_trace(go.Scatter(x=demand.index, y=demand['rides'],
                                     mode='lines+markers',
                                     name='Ride Demand',
-                                    line=dict(color='blue', width=2)))
+                                    line=dict(color='#38bdf8', width=2)))
             
             if len(outliers) > 0:
                 outlier_dates = demand.loc[outliers.index]
                 fig.add_trace(go.Scatter(x=outlier_dates.index, y=outlier_dates['rides'],
                                         mode='markers',
                                         name='Outliers',
-                                        marker=dict(color='red', size=10, symbol='x')))
+                                        marker=dict(color='#ef4444', size=10, symbol='x')))
             
             fig.update_layout(title='Outlier Detection Results',
                              xaxis_title='Date',
                              yaxis_title='Ride Demand',
-                             template='plotly_white')
+                             template='plotly_dark',
+                             paper_bgcolor='rgba(0,0,0,0)',
+                             plot_bgcolor='rgba(0,0,0,0)',
+                             font=dict(color='#cbd5e1'))
             st.plotly_chart(fig, use_container_width=True)
         else:
             fig, ax = plt.subplots(figsize=(12, 5))
-            ax.plot(demand.index, demand['rides'], linewidth=2, color='blue', label='Ride Demand')
+            ax.plot(demand.index, demand['rides'], linewidth=2, color='#38bdf8', label='Ride Demand')
             if len(outliers) > 0:
                 outlier_dates = demand.loc[outliers.index]
                 ax.scatter(outlier_dates.index, outlier_dates['rides'], 
@@ -649,11 +785,13 @@ with tab8:
             if PLOTLY_AVAILABLE:
                 fig = px.line(clean, x=clean.index, y='rides',
                              title='Cleaned Data (Outliers Removed)',
-                             template='plotly_white')
+                             template='plotly_dark',
+                             color_discrete_sequence=['#10b981'])
+                fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color='#cbd5e1'))
                 st.plotly_chart(fig, use_container_width=True)
             else:
                 fig, ax = plt.subplots(figsize=(10, 4))
-                ax.plot(clean.index, clean['rides'], linewidth=2, color='green')
+                ax.plot(clean.index, clean['rides'], linewidth=2, color='#10b981')
                 ax.set_title('Cleaned Data (Outliers Removed)')
                 ax.set_xlabel('Date')
                 ax.set_ylabel('Ride Demand')
@@ -687,13 +825,14 @@ with tab9:
                             orientation='h',
                             title='Feature Importance Score',
                             labels={'x': 'Importance', 'y': 'Features'},
-                            template='plotly_white')
-                fig.update_layout(height=400)
+                            template='plotly_dark',
+                            color_discrete_sequence=['#38bdf8'])
+                fig.update_layout(height=400, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color='#cbd5e1'))
                 st.plotly_chart(fig, use_container_width=True)
             else:
                 fig, ax = plt.subplots(figsize=(10, 6))
                 importance_sorted = importance.sort_values()
-                ax.barh(importance_sorted.index, importance_sorted.values)
+                ax.barh(importance_sorted.index, importance_sorted.values, color='#38bdf8')
                 ax.set_xlabel('Importance')
                 ax.set_title('Feature Importance Score')
                 ax.grid(True, alpha=0.3)
@@ -705,13 +844,14 @@ with tab9:
             fig = px.imshow(df_corr.corr(), 
                            text_auto=True,
                            aspect="auto",
-                           color_continuous_scale='RdBu',
-                           title='Correlation Matrix After Filtering')
-            fig.update_layout(height=500)
+                           color_continuous_scale='Blues',
+                           title='Correlation Matrix After Filtering',
+                           template='plotly_dark')
+            fig.update_layout(height=500, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color='#cbd5e1'))
             st.plotly_chart(fig, use_container_width=True)
         else:
             fig, ax = plt.subplots(figsize=(12, 8))
-            im = ax.imshow(df_corr.corr(), cmap='RdBu', aspect='auto')
+            im = ax.imshow(df_corr.corr(), cmap='Blues', aspect='auto')
             plt.colorbar(im, ax=ax)
             ax.set_xticks(range(len(df_corr.columns)))
             ax.set_yticks(range(len(df_corr.columns)))
@@ -723,7 +863,7 @@ with tab9:
 # Footer
 st.markdown("---")
 st.markdown("""
-<div style="text-align: center; padding: 1rem;">
+<div style="text-align: center; padding: 1rem; color: #94a3b8;">
     <p>🚕 Ride Demand Forecasting Dashboard | Built with Streamlit</p>
 </div>
 """, unsafe_allow_html=True)
